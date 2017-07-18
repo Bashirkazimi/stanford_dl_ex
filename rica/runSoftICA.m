@@ -13,7 +13,7 @@ params.numFeatures = 50; % number of filter banks to learn
 params.epsilon = 1e-2; % epsilon to use in square-sqrt nonlinearity
 
 % Load MNIST data set
-data = loadMNISTImages('../common/train-images-idx3-ubyte');
+data = loadMNISTImages('../common/train-images.idx3-ubyte');
 
 %% Preprocessing
 % Our strategy is as follows:
@@ -41,6 +41,7 @@ options.outputFcn = @showBases;
 randTheta = randn(params.numFeatures,params.n)*0.01; % 1/sqrt(params.n);
 randTheta = randTheta ./ repmat(sqrt(sum(randTheta.^2,2)), 1, size(randTheta,2));
 randTheta = randTheta(:);
+
 
 % optimize
 [opttheta, cost, exitflag] = minFunc( @(theta) softICACost(theta, x, params), randTheta, options); % Use x or xw
