@@ -11,11 +11,17 @@ function [f,g] = logistic_regression_vec(theta, X,y)
   % initialize objective value and gradient.
   f = 0;
   g = zeros(size(theta));
-  
-
+  n = size(X,1);
   %
   % TODO:  Compute the logistic regression objective function and gradient 
   %        using vectorized code.  (It will be just a few lines of code!)
   %        Store the objective function value in 'f', and the gradient in 'g'.
   %
 %%% YOUR CODE HERE %%%
+  predictions = theta'*X;
+  fs = y.*log(sigmoid(predictions))+ (1-y).*log(1-sigmoid(predictions));
+  %size(fs)
+  fs = sum(fs);
+  f = (-1.0/(m))*fs;
+  gs = sigmoid(predictions) - y;
+  g = (gs*X')';
